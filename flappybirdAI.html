@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AI plays flappy bird</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+HK&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+    	.bg-dark{
+    		background-color: #2b28288a!important;
+    	}
+    	.navbar-dark .navbar-nav .nav-link {
+		    color: white;
+		    font-family: 'Rubik', sans-serif;
+		    font-size: 1.2em;
+
+		}
+		.heading{
+			font-family: 'Work Sans', sans-serif;
+			padding-top: 5%
+		}
+		.para{
+			font-family: 'Noto Sans HK', sans-serif;
+			padding-top: 0.7%
+
+		}
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142114907-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-142114907-1');
+	</script>
+</head>
+<body>
+		<!-- NavBar -->
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav ml-auto">
+		    	<li class="nav-item">
+					<a class="nav-link" href="index.html#home">Home<span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="index.html#aboutme">About Me</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="index.html#projects">Projects</a>
+				</li>
+		    </ul>
+		</div>
+	</nav>
+
+	<div class="container" style="padding-top: 12%; text-align: center; font-family: 'Muli', sans-serif; ">
+		<h1>
+			AI plays Flappy Bird using Neuroevolution
+		</h1>
+
+		<img src="img/fb.gif" class="img-fluid float-none" style="padding-top: 5%">
+
+		<h4 style="padding-top: 2%; font-family: 'Roboto Condensed', sans-serif;">
+			In these section I will tell you how I made an AI that plays Flappy Bird game.
+		</h4>
+	</div>
+
+	<div class="container">
+		<h2 class="heading">
+			Introduction
+		</h2>
+
+		<p class="para">
+			AI is taking control of the whole world very rapidly. From diagnosing cancer to generating different & unique versions of 'Game of Thrones' ending, AI is in action everywhere. In March 2016, <a href="https://en.wikipedia.org/wiki/AlphaGo">AlphaGo</a> beat <a href="https://en.wikipedia.org/wiki/Lee_Sedol">Lee Sedol</a> in a five-game match with a final score of 4-1. The AlphaGo was trained by Reinforcement Learning. The basic idea behind Reinforcement Learning is to reward the 'agent' for his good decisions and punish him for the bad decisions. The reward will encourage him to take the similar decisions under the similar circumstances in future and the punishment will tell him not to repeat such actions in future. We are going to apply same mechanism to our flappy bird game and watch him play the game while we sit back & assume that we ourselves are playing this game so perfectly. The reward will be the increment in score whenever the bird succesfully crosses the pipe and the punishment will be his death whenever he collides with the pipe or ground or the sky( My Neural Network was unable to find some other word).      
+		</p>
+
+		<h2 class="heading">
+			What is NEAT?
+		</h2>
+
+		<p class="para">
+			NEAT stands for Neuroevolution of Augmenting Topologies. As the name suggests, it is the evolution of neural networks, or the evolution of the weights of neural network. It mimics the process of natural evolution. Every generation starts with some number( 300 in our case) of population( bird). The first genration's individual are not smart, thier brain has random neural networks, but out of that randomness, there is a chance that some individuals might take some good decisions during their lifetime. When all the individuals of that generation die, the two individual are chosen based on their good decisions, and they are crossovered( mixing of the weights of both neural network), followed by mutation( random twerks in weights). After this process a new individual is born, same procedure goes on for all the individual of that population. Now we have a new genration with some traits from their parents and some acquired traits( due to mutation). This new genration again goes for the only goal in their life, which is to get maximum score before dying. Again after all the individual die, their traits are passed on to next generation. So by this way, every genration gets smarter as compared to their previous generation. 
+		</p>
+		<p class="para">
+			Now we will apply this theory to our flappy bird and make him immortal.
+		</p>
+
+		<h2 class="heading">
+			Implementation
+		</h2>
+
+		<p>
+			Note: In this section we will not be focussing on the making of the game, our main focus will be on AI. If you want to know about the making of game, which I recommend, click <a href="#">here</a>.
+			<br>
+			<br>
+			So, let's start the journey!
+			<br>
+			<br>
+			For implementing this algorithm, the first thing we need is the population of bird. So we initialize our program with appending the population of birds in our birds array.
+		</p>
+		<pre class="pre-scrollable"><code>
+			    def __init__(self):
+			        for _ in range(self.population):
+			            self.birds.append(Bird(self))
+			        self.gameLoop()
+			</pre></code>
+
+		<p class="para">
+			The gameLoop() is our main function of the game, where the loop which controls the whole game, resides. But first, let's take a look at our Bird() class. 
+		</p>
+
+		<pre class="pre-scrollable">
+			<code>
+				def __init__(self, game):
+			        self.x = 50
+			        self.radius = 15
+			        from game import Game
+			        self.y = Game.height // 2
+			        self.y_vel = 0
+			        self.gravity = 1
+			        self.score = 0
+			        self.fitness = 0
+			        self.distance = 0
+			        self.brain = NeuralNetwork(8, 5, 2)
+			        self.game = game
+			        self.inputs = 8 * [0]
+			</code>
+		</pre>
+
+		<p class="para">
+			This is our <code>__init__</code> function of Bird(). For now, ignore the other initialisations and focus on <code><var>self.brain</var> = NeuralNetwork(8,5,2)</code>. 
+			<br>
+			Now, we will look at the <code>__init__</code> function of NeuralNetwork() class.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+				    def __init__(self, input_nodes, hidden_nodes, output_nodes):
+				        self.input_nodes = input_nodes
+				        self.hidden_nodes = hidden_nodes
+				        self.output_nodes = output_nodes
+				        self.in_hidden_weights = np.random.rand(self.hidden_nodes, self.input_nodes)
+				        self.hidden_output_weights = np.random.rand(self.output_nodes, self.hidden_nodes)
+				        self.in_hidden_biases = np.random.rand(self.hidden_nodes, 1)
+				        self.hidden_output_biases = np.random.rand(self.output_nodes, 1)
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			As you can see, NeuralNetwork() takes three parameter, <code><var>input_nodes</var></code>, <code><var>hidden_nodes</var></code>, <code><var>output_nodes</var></code>, and then with these parameters we initialize 4 randomly generated matrices <code><var>self.in_hidden_weights</var></code>, <code><var>self.hidden_output_weights</var></code>, <code><var>self.in_hidden_biases</var></code>, <code><var>self.hidden_output_biases</var></code>. These function initialises a 3-layered neural network, the first layer be the input layer with number of nodes in it as <code><var>input_nodes</var></code>,
+			the second layer as hidden layer with number of nodes in it as <code><var>hidden_nodes</var></code> and the third layer as output layer with number of nodes in it as <code><var>output_nodes</var></code>. And the 4 randomly generated matrices are the weights of the neural network with <code><var>self.in_hidden_weights</var></code> as the weights between input layer & hidden layer, <code><var>self.hidden_output_weights</var></code> as the weights between hidden layer & output layer, <code><var>self.in_hidden_biases</var></code> & <code><var>self.hidden_output_biases</var></code> as the biases between input layer & hidden layer, hidden layer & output layer respectively. 
+		</p>
+
+		<p class="para">
+			Now let's look at the variable <code><var>self.brain</var></code> of Bird() class.
+			<br>
+			<br>
+			<code><var>self.brain</var> = NeuralNetwork(8, 5, 2)</code>
+			<br>
+			<br>
+			So, this indicates that every bird object has a <code><var>brain</var></code> variable which is nothing but the randomly generated Neural Network.
+		</p>
+
+		<p class="para">
+			Now let's look at the <code><var>__init__</var></code> method of Game() class, where our program started.
+		</p>
+		<p class="para">
+			<pre class="pre-scrollable"><code>
+			    def __init__(self):
+			        for _ in range(self.population):
+			            self.birds.append(Bird(self))
+			        self.gameLoop()
+			</pre></code>
+		</p>
+
+		<p class="para">
+			So, what this particular block of code doing is appending 300 birds with their respective brain(Neural Network) into <code><var>self.birds</var></code> array and then calling the <code><var>self.gameLoop()</var></code> method which is the mainLoop handling our game.
+		</p>
+
+		<p class="para">
+			Now, let's take a look at <code><var>self.gameLoop()</var></code> method.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+				    def gameLoop(self):
+				    	gameExit = False
+				        while not gameExit:
+				            for bird in self.birds:
+				                bird.showBird()
+				                bird.think()
+				                bird.predict()
+				                bird.distance += 1
+				                bird.y += bird.y_vel
+				                bird.y_vel += bird.gravity
+				                if bird.collidingWall() or bird.collidingPipe():
+				                    self.savedBirds.append(bird)
+				                    self.birds.remove(bird)
+				                    if len(self.birds) == 0:
+				                        self.pipes = []
+				                        ga = GA(self)
+				                        ga.nextGenration()
+				                        self.generation += 1
+				                        self.gameLoop()
+				            pygame.display.update()
+				            self.clock.tick(30)
+				        pygame.quit()
+				        quit()
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			So, what this <code><var>self.gameLoop()</var></code> method doing is traversing through every bird in <code><var>self.birds</var></code> list and performing some operations on them. Let's look at these operation one-by-one.
+		</p>
+
+		<h4 class="heading">
+			1. showBird()
+		</h4>
+
+		<p class="para">
+				Let's look at the method showBird method of bird class.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+			    	def showBird(self):
+				        from game import Game
+				        pygame.draw.circle(Game.gameDisplay, Game.black, (self.x, self.y), self.radius)
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			Apart from the <code><var>self.brain</var></code>, Bird() class also have some other variables such as it's x position, it's y position, it's radius(Since our bird is actually a circle XD) etc. So what this showBird() is doing is just drawing a circle at given x,y with it's radius.
+		</p>
+
+		<h4 class="heading">
+			2. think()
+		</h4>
+
+		<p class="para">
+			Let's see what think() method of bird do
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+			    	def think(self):
+				        # Inputs to neural network
+				        # 1. horizontal distance from the start of pipe
+				        # 2. horizontal distance from the end of pipe
+				        # 3. vertical distance from the upper pipe
+				        # 4. verical distance from the lower pipe
+				        # 5. y position of bird
+				        # 6. y velocity of bird
+				        # 7. vertical distance from sky
+				        # 8. vertical distance from ground
+
+				        pipe = self.findClosestPipe()
+
+				        # 1. horizontal distance from the start of pipe
+
+				        dis_1 = pipe.x - (self.x + self.radius)
+				        dis_1 /= self.game.width
+				        self.inputs[0] = dis_1
+
+				        # 2. horizontal distance from the end of pipe
+
+				        dis_2 = (pipe.x + 75) - (self.x + self.radius)
+				        dis_2 /= self.game.width
+				        self.inputs[1] = dis_2
+
+				        # 3. vertical distance from the upper pipe
+
+				        dis_3 = (self.y - self.radius) - (pipe.y - pipe.gap)
+				        dis_3 /= self.game.height
+				        self.inputs[2] = dis_3
+
+				        # 4. verical distance from the lower pipe
+
+				        dis_4 = (self.y + self.radius) - (pipe.y)
+				        dis_4 /= self.game.height
+				        self.inputs[3] = dis_4
+
+				        # 5. y position of bird
+
+				        y_pos = self.y
+				        y_pos /= self.game.height
+				        self.inputs[4] = y_pos
+
+				        # 6. y velocity of bird
+
+				        y_vel = self.y_vel
+				        y_vel /= self.game.height
+				        self.inputs[5] = y_vel
+
+				        # 7. vertical distance from sky
+
+				        ver_dis_1 = (self.y - self.radius)
+				        ver_dis_1 /= self.game.height
+				        self.inputs[6] = ver_dis_1
+
+				        # 8. vertical distance from ground
+
+				        ver_dis_2 = (self.y + self.radius) - self.game.height
+				        ver_dis_2 /= self.game.height
+				        self.inputs[7] = ver_dis_2
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			Remember the <code><var>self.brain = NeuralNetwork(8,5,2)</var></code>?
+
+			So our neural network takes 8 inputs, which are:
+			<div style="padding-left: 3%; font-family: 'Work Sans', sans-serif;">
+				<ol>
+					<li><h5>horizontal distance from the start of pipe</h5></li>
+					<li><h5>horizontal distance from the end of pipe</h5></li>
+					<li><h5>vertical distance from the upper pipe</h5></li>
+					<li><h5>vertical distance from the lower pipe</h5></li>
+					<li><h5>y position of bird</h5></li>
+					<li><h5>y velocity of bird</h5></li>
+					<li><h5>vertical distance from sky</h5></li>
+					<li><h5>vertical distance from ground</h5></li>
+				</ol>
+			</div>
+		</p>
+
+		<p class="para">
+			So, what this function does is calculate the inputs for the neural network and normalize them.
+		</p>
+
+		<h4 class="heading">
+			3. predict()
+		</h4>
+
+		<p class="para">
+			Let's see what the predict() method does.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+		    	<code>
+		    		def predict(self):
+				        self.inputs = np.reshape(self.inputs, (8, 1))
+				        output = self.brain.feedforward(self.inputs)
+				        output = np.argmax(output)
+
+				        if output == 0:
+				            self.moveUp()
+				        elif output == 1:
+				            pass
+		    	</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			So, as the name suggests, the inputs which was calculated in think(), the neural network takes it and predicts whether the bird should jump up or not.
+		</p>
+
+		<p class="para">
+			Till now, bird was performing some action, like calculating the input and predicting whether it should jump or not, Now we will handle the consequences of the action performed by the bird in previous step.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+					 if bird.collidingWall() or bird.collidingPipe():
+	                    self.savedBirds.append(bird)
+	                    self.birds.remove(bird)
+	                    if len(self.birds) == 0:
+	                        self.pipes = []
+	                        ga = GA(self)
+	                        ga.nextGenration()
+	                        self.generation += 1
+	                        self.gameLoop()
+	            pygame.display.update()
+				</code>
+			</pre>
+		</p>
+		<p class="para">
+			This block of code checks that if the bird is colliding with walls(ground or sky) or with the pipes, if it is true, then it deletes the bird from the <code><var>self.birds</var></code> list(which is equivalent to dying). Then if the list becomes empty then our NEAT algorithm comes in action.
+		</p>
+
+		<h4 class="heading">
+			nextGenration()
+		</h4>
+
+		<p class="para">
+			Since our list has became empty, which means our generation died, now it's time to call the nextGeneration.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+				    def nextGenration(self):
+				        self.calculateFitness()
+				        if (self.game.foundBestBird):
+				            child = Bird(self.game)
+				            child.brain = self.game.bestBirdBrain
+				            self.game.birds.append(child)
+				        else:
+				            self.game.birds.append(self.game.savedBirds[random.randrange(self.game.population)])
+				        for i in range(self.game.population - 1):
+				            self.game.birds.append(self.pick())
+				        self.game.savedBirds = []
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			calculateFitness() calculates the fitness of each bird based on the distance travelled by him and and it's score.
+		</p>
+
+		<h4 class="heading">
+			pick()
+		</h4>
+
+		<p class="para">
+			What pick() does is picks parents(2 birds) from the previous genration, mutate them and again put them in <code><var>self.birds</var></code> list for the next genration. 
+		</p>
+
+		<p class="para">
+			This is how the NEAT works, the full code is available on my <a href="https://github.com/sushantPatrikar/flappybirdAI">GitHub</a>.
+		</p>
+	</div>
+
+	
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

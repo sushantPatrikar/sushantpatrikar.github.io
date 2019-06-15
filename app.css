@@ -1,0 +1,151 @@
+html,body{
+	height:100%;
+	width: 100%;
+}
+
+#home{
+	/*background: url("https://wallpaperplay.com/walls/full/b/f/b/186774.jpg")*/
+	/*background : url("alps-background-calm-1227520.jpg");*/
+	/*background: url("https://wallpaperplay.com/walls/full/1/c/0/186791.jpg");*/
+	/*background : url("https://www.wallpaperup.com/uploads/wallpapers/2014/03/29/314439/83fa590af0296620246e5d7b647d0156-700.jpg");*/
+	background: url("img/background.jpg");
+	display: table;
+	height: 100%;
+	position: relative;
+	width: 100%;
+	background-size: cover;
+}
+
+.typewriter h2 {
+  font-family: monospace; 
+  overflow: hidden; 
+  white-space: nowrap; 
+  margin: 0 auto; 
+  letter-spacing: .12em; 
+  animation: 
+    typing 5s steps(60, end),
+    blinking-cursor .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blinking-cursor {
+  from, to { border-color: transparent }
+  50% { border-color: transparent; }
+}
+/*.navbar-inner {
+    background:transparent;
+}*/
+
+/*.navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+}*/
+
+.navbar-inverse .navbar-brand {
+    color: white;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.5em
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.5em
+}
+#button{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-outline{
+	background-color: transparent;
+  	border-color: #ccc;
+}
+
+
+
+
+
+.btn-default {
+  font-family: Raleway-SemiBold;
+  font-size: 15px;
+  letter-spacing: 1px;
+  line-height: 15px;
+  border-radius: 40px;
+  background: transparent;
+  transition: all 0.3s ease 0s;
+}
+
+#button.btn.btn-default.btn-outline.center-block{
+	color: white;
+	float: none
+}
+
+/*.center-block{
+	float: none;
+
+}*/
+
+.center{
+	text-align: center;
+	float: none;
+}
+
+.heading{
+	padding-top: 2%;
+	text-align: center;
+	/*font-family: 'Alfa Slab One', cursive;*/
+	font-family: 'Work Sans', sans-serif;
+	color: black;
+}
+#card-title-heading.card-title{
+	font-family: 'Open Sans', sans-serif;
+	color: black;
+}
+
+.bg-dark {
+    background-color: #2b28288a!important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2em;
+
+}
+/*.card-but{
+  float: none; 
+  text-align: center;
+  }*/
+/*@media screen and (max-width: 575.98px) {
+    h1{
+        font-size:14px;
+    }
+}
+
+@media screen and (max-width: 575.98px) {
+    h3{
+        font-size:7px;
+    }
+}*/
+/*.heading-center{
+    height: 200px;
+  width: 400px;
+  background: black;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -200px;
+}*/
+
+
+
+   
