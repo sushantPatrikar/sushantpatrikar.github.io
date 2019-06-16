@@ -330,6 +330,7 @@
 
 			So our neural network takes 8 inputs, which are:
 			<div style="padding-left: 3%; font-family: 'Work Sans', sans-serif;">
+				<img src="img/fbex.jpg" class="img-fluid float-right">
 				<ol>
 					<li><h5>horizontal distance from the start of pipe</h5></li>
 					<li><h5>horizontal distance from the end of pipe</h5></li>
@@ -340,6 +341,7 @@
 					<li><h5>vertical distance from sky</h5></li>
 					<li><h5>vertical distance from ground</h5></li>
 				</ol>
+
 			</div>
 		</p>
 
@@ -396,7 +398,7 @@
 			</pre>
 		</p>
 		<p class="para">
-			This block of code checks that if the bird is colliding with walls(ground or sky) or with the pipes, if it is true, then it deletes the bird from the <code><var>self.birds</var></code> list(which is equivalent to dying). Then if the list becomes empty then our NEAT algorithm comes in action.
+			This block of code checks that if the bird is colliding with walls(ground or sky) or with the pipes, then it deletes the bird from the <code><var>self.birds</var></code> list(which is equivalent to dying). Then if the list becomes empty then our NEAT algorithm comes in action.
 		</p>
 
 		<h4 class="heading">
@@ -404,7 +406,7 @@
 		</h4>
 
 		<p class="para">
-			Since our list has became empty, which means our generation died, now it's time to call the nextGeneration.
+			Since our list has became empty, which means our generation has died, now it's time to call the nextGeneration.
 		</p>
 
 		<p class="para">
@@ -419,7 +421,7 @@
 				        else:
 				            self.game.birds.append(self.game.savedBirds[random.randrange(self.game.population)])
 				        for i in range(self.game.population - 1):
-				            self.game.birds.append(self.pick())
+				            self.game.birds.append(self.pickOne())
 				        self.game.savedBirds = []
 				</code>
 			</pre>
@@ -427,18 +429,223 @@
 
 		<p class="para">
 			calculateFitness() calculates the fitness of each bird based on the distance travelled by him and and it's score.
+			Let's see how it does.
 		</p>
 
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+			    	def calculateFitness(self):
+						sum = 0
+						for bird in self.game.savedBirds:
+						    bird.calculateFitness()
+						    sum += bird.fitness
+						for bird in self.game.savedBirds:
+						    bird.fitness /= sum
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			So, we traverse through every bird object of the previous generation which is saved in our <code><var>self.savedBirds</var></code> list, and then call the method calculateFitness() of the bird class.
+			<br>
+			<br>
+			Note that this is not recursion, the current calculateFitness() is of GA() class which handles NEAT algorithm, and the method calculateFitness() it is calling is from Bird() class.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+					def calculateFitness(self):
+        				self.fitness = math.pow(2, self.score) + (self.distance ** 2)
+				</code>
+			</pre>
+		    
+		</p>
+
+		<p class="para">
+			The calculateFitness() method of Bird() class calculates the fitness of bird. It is a function of score as well as distance, but more priority is given to score of the bird. So, the more the score and the distance, the more the fitness, & more chances of getting picked up for mating.
+		</p>
+
+		<p class="para">
+			Now, we will see calculateFitness() method of GA() class again.
+		</p>	
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+			    	def calculateFitness(self):
+						sum = 0
+						for bird in self.game.savedBirds:
+						    bird.calculateFitness()
+						    sum += bird.fitness
+						for bird in self.game.savedBirds:
+						    bird.fitness /= sum
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			So, as a whole, what this method does is, it calculates the fitness of every bird and normalize them.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+				    def nextGenration(self):
+				        self.calculateFitness()
+				        if (self.game.foundBestBird):
+				            child = Bird(self.game)
+				            child.brain = self.game.bestBirdBrain
+				            self.game.birds.append(child)
+				        else:
+				            self.game.birds.append(self.game.savedBirds[random.randrange(self.game.population)])
+				        for i in range(self.game.population - 1):
+				            self.game.birds.append(self.pickOne())
+				        self.game.savedBirds = []
+				</code>
+			</pre>
+		</p>
+
+
 		<h4 class="heading">
-			pick()
+			pickOne()
 		</h4>
 
 		<p class="para">
-			What pick() does is picks parents(2 birds) from the previous genration, mutate them and again put them in <code><var>self.birds</var></code> list for the next genration. 
+			<pre class="pre-scrollable">
+				<code>
+			 	def pickOne(self):
+			        r1 = random.uniform(0, 1)
+			        index = 0
+			        while r1 > 0:
+			            r1 -= self.game.savedBirds[index].fitness
+			            index += 1
+			        index -= 1
+
+			        bird1 = self.game.savedBirds[index]
+
+			        r2 = random.uniform(0, 1)
+			        index2 = 0
+
+			        while r2 > 0:
+			            r2 -= self.game.savedBirds[index2].fitness
+			            index2 += 1
+			        index2 -= 1
+
+			        bird2 = self.game.savedBirds[index2]
+
+			        child = Bird(self.game)
+
+			        child.brain.in_hidden1_weights = bird1.brain.crossover(bird1.brain.in_hidden1_weights,
+			                                                               bird2.brain.in_hidden1_weights)
+			        child.brain.in_hidden1_biases = bird1.brain.crossover(bird1.brain.in_hidden1_biases,
+			                                                              bird2.brain.in_hidden1_biases)
+			        child.brain.hidden1_output_weights = bird1.brain.crossover(bird1.brain.hidden1_output_weights,
+			                                                                   bird2.brain.hidden1_output_weights)
+			        child.brain.hidden1_output_biases = bird1.brain.crossover(bird1.brain.hidden1_output_biases,
+			                                                                  bird2.brain.hidden1_output_biases)
+
+			        child.brain.mutate(child.brain.in_hidden1_weights, 0.3)
+			        child.brain.mutate(child.brain.in_hidden1_biases, 0.3)
+			        child.brain.mutate(child.brain.hidden1_output_weights, 0.3)
+			        child.brain.mutate(child.brain.hidden1_output_biases, 0.3)
+
+			        return child
+				</code>
+			</pre>
+		</p>
+		<p class="para">
+			This method looks a little bigger. So, first, let's see what it is returning.
+			<br>
+			<code><var>return child</var></code>
+
+			<br>
+			So, it returns a child. The job of pickOne() is to append the 300 children to our <code><var>self.birds</var></code> list. But before returning child, it will need his parents(2 birds of previous generation). So for each 300 birds, there will be a pair of birds who are crossovered.
+			<br>
+			But how does the pair is selected?
+			<br>
+
+			We select two parent one-by one, based on their fitness, the more the fitness, more is the probabiity of them to get selected. It's not necessary that the two parent will be different, sometimes, the parent can be the same bird, it all depends on the fitness value of the birds in the previous generation. After selecting the parents, the bird is crossovered. Which means, we take all the 4 matrices of parent 1 and mix them with the corresponding matrices of it's counterpart.
+			<br>
+			How do we mix them?
+
+			We take the upper half rows of parent 1, lower half rows of parent 2 and combine them to return a matrix, which is a combination of both the matrices.
 		</p>
 
 		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+			    	def crossover(self, mat1, mat2):
+				        childMat = np.zeros((mat1.shape[0], mat1.shape[1]))
+				        x = mat1.shape[0] // 2
+				        childMat[:x], childMat[x:] = mat1[:x], mat2[x:]
+        				return childMat
+				</code>
+			</pre>
+		</p>
+		<p class="para">
+			Now we have the 4 matrices of child bird which has the combination of traits of his parents, but the bird should acquire some new traits, so we mutate the 4 matrices.
+		</p>
+
+		<p class="para">
+			What mutate() method does is ,it traverse through the matrix, and pick element based on the rate, which is the probability, in our case 30% and twerk the element by adding a random number between -0.1 to 0.1. The rate defines, the probability of the element getting twerked. In our case, while traversing through the matrix, the probability of twerking the particular element is 30%. 
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+			    	def mutate(self, mat, rate):
+				        for i in range(mat.shape[0]):
+				            if rate > (random.uniform(0, 1)):
+				                for j in range(mat.shape[1]):
+				                    mat[i][j] += random.uniform(-0.1, 0.1)
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			Now after mutation, the child is ready to get appended in our <code><var>self.birds</var></code> list.
+		</p>
+		<p>
+			Now let's summarize the nextGeneration() method.
+		</p>
+
+			<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+				    def nextGenration(self):
+				        self.calculateFitness()
+				        if (self.game.foundBestBird):
+				            child = Bird(self.game)
+				            child.brain = self.game.bestBirdBrain
+				            self.game.birds.append(child)
+				        else:
+				            self.game.birds.append(self.game.savedBirds[random.randrange(self.game.population)])
+				        for i in range(self.game.population - 1):
+				            self.game.birds.append(self.pickOne())
+				        self.game.savedBirds = []
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			In nextGeneration() method, we first calculate the fitness of every bird, then we check if the best bird is found, i.e if the any of the birds has surpassed the best score which is initially 0. If the best bird is found then we apeend the child with the brain of that best bird and the rest 299 birds by pickOne() method, otherwise, we append one random bird from the population and rest 299 by pickOne() method.
+			<br>
+			<br>
+
+			After this, our code again goes to gameLoop() method and the same whole process goes on for new generation.
+		</p>
+
+		<h2 class="heading">
+			Conclusion
+		</h2>
+		<p class="para">
 			This is how the NEAT works, the full code is available on my <a href="https://github.com/sushantPatrikar/flappybirdAI">GitHub</a>.
+			<br>
+			<br>
+			After the DeepMind's AlphaGo has beaten Lee Sedol, who has won 18 International titles, the question that pops in my mind is, has the Artificial Intelligence already surpassed the human intelligence?
+
 		</p>
 	</div>
 
