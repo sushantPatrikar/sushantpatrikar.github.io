@@ -1,4 +1,4 @@
 # Personal Website
 Here I post detailed explanation of my projects.
 
-https://sushantpatrikar.github.io .
+Click <a href="https://sushantpatrikar.github.io">here</a> to visit my website .
