@@ -16,14 +16,14 @@ html,body{
 	background-size: cover;
 }
 
-.typewriter h2 {
+.typewriter h1 {
   font-family: monospace; 
   overflow: hidden; 
   white-space: nowrap; 
   margin: 0 auto; 
-  letter-spacing: .12em; 
+  letter-spacing: .2em; 
   animation: 
-    typing 5s steps(60, end),
+    typing 4s steps(60, end),
     blinking-cursor .5s step-end infinite;
 }
 
