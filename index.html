@@ -37,14 +37,17 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav ml-auto">
 		    	<li class="nav-item">
-					<a class="nav-link" href="#home">Home<span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="#home" data-toggle="collapse" data-target=".navbar-collapse.show">Home<span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#aboutme">About Me</a>
+					<a class="nav-link" href="#aboutme" data-toggle="collapse" data-target=".navbar-collapse.show">About Me</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#projects">Projects</a>
+					<a class="nav-link" href="#projects" data-toggle="collapse" data-target=".navbar-collapse.show">Projects</a>
 				</li>
+				<!-- <li class="nav-item">
+					<a class="nav-link" href="#contact" data-toggle="collapse" data-target=".navbar-collapse.show">Contact</a>
+				</li> -->
 		    </ul>
 		</div>
 	</nav>
@@ -93,7 +96,7 @@
 		<div class="container">
 			<h1 class="heading">About Me</h1>
 			<img src="img/me.jpg" style="padding-left: 2%;" class="img-fluid rounded float-right">
-			<h4 style="text-align: left; padding-top: 2%; font-family: 'Nunito', sans-serif;">
+			<h4 style="text-align: left; padding-top: 4%; font-family: 'Nunito', sans-serif;">
 				Hello Again! Currently I'm in III year pursuing bachleor's degree in Computer Science from Ramdeobaba College of Engineering, Nagpur, India. I'm an AI & ML enthusiast and I try to learn new things about them everyday. I have done some projects on AI & ML, which are listed below. Mostly I code in Python, but also have intermediate level skills in JAVA and C.
 				My other interests include Pentesting & Game Development.
 			</h4>
@@ -221,9 +224,43 @@
 		</div>
 	</div>
 
+	<!-- Contact Me -->
+
+	<!-- <section id="contact" style="padding-top: 5%; color: white">
+		
+	</section> -->
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
 
 </body>
 </html>

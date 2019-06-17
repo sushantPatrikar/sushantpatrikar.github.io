@@ -1,6 +1,7 @@
 html,body{
 	height:100%;
 	width: 100%;
+  /*scroll-behavior: smooth;*/
 }
 
 #home{
@@ -119,32 +120,14 @@ html,body{
     font-size: 1.2em;
 
 }
-/*.card-but{
-  float: none; 
-  text-align: center;
-  }*/
-/*@media screen and (max-width: 575.98px) {
-    h1{
-        font-size:14px;
-    }
+
+#contact{
+  background : url("img/contact.jpg");
+  width: 100%;
+  /*display: table;
+  position: relative;*/
+  background-size: cover;
 }
-
-@media screen and (max-width: 575.98px) {
-    h3{
-        font-size:7px;
-    }
-}*/
-/*.heading-center{
-    height: 200px;
-  width: 400px;
-  background: black;
-
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -100px;
-  margin-left: -200px;
-}*/
 
 
 
