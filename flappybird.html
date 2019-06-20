@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flappy bird Clone</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    <link href="https://fonts.googleapis.com/css?family=Lato:700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+HK&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+    	.bg-dark{
+    		background-color: #2b28288a!important;
+    	}
+    	.navbar-dark .navbar-nav .nav-link {
+		    color: white;
+		    font-family: 'Rubik', sans-serif;
+		    font-size: 1.2em;
+
+		}
+		.heading{
+			font-family: 'Work Sans', sans-serif;
+			padding-top: 5%
+		}
+		.para{
+			font-family: 'Noto Sans HK', sans-serif;
+			padding-top: 0.7%
+
+		}
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142114907-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-142114907-1');
+	</script>
+</head>
+<body>
+			<!-- NavBar -->
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav ml-auto">
+		    	<li class="nav-item">
+					<a class="nav-link" href="index.html#home">Home<span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="index.html#aboutme">About Me</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="index.html#projects">Projects</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#index.html#contact">Contact</a>
+				</li>
+		    </ul>
+		</div>
+	</nav>
+
+	<div class="container" style="padding-top: 15%; text-align: center; font-family: 'Muli', sans-serif; ">
+		<h1 style="font-weight: 1000">
+			Flappy bird clone using pygame.
+		</h1>
+
+		<img src="img/flappybird.jpg" class="img-fluid float-none" style="padding-top: 5%">
+
+		<h4 style="padding-top: 2%; font-family: 'Roboto Condensed', sans-serif;">
+			In these section I will tell you how I made the clone of flappy bird.
+		</h4>
+	</div>
+
+	<!-- Introduction -->
+	<div class="container">
+		<h2>
+			Introduction
+		</h2>
+
+		<p class="para">
+			We all have played this game, now it's time to code it! We are going to use python module for games, <a href="https://en.wikipedia.org/wiki/Pygame">pygame</a>. So first, let's see how it works.
+		</p>
+
+		<h2 class="heading">
+			How pygame works?
+		</h2>
+
+		<p class="para">
+			Coding any game is just updation of images. In every game, we just update the image. This rapid updation of image gives us a sensation of moving objects. It is like a <a href="https://www.reddit.com/r/gifs/comments/9p2e04/candy_corn_orange_justice_a_flipbook/">flipbook</a>. In flipbook, we have images on every page, where every image is bit different from the image on it's previous page. But when we flip the book rapidly, it feels like some animation. Pygame replicates the concept behind flipbook. Just like we draw images on pages of flipbook, we draw images on frames of pygames. The image is drawn on the first frame and it is shown to gamer. Depending on the action performed by the gamer, we draw the image on next frame with some minor changes, which was caused by the action of gamer, and again the frame is shown to him and this process go on till the game ends. Now, this looks like a cyclic process, which means loop is being used somewhere, and this loop is our game loop. The game loop show the frame on screen, take inputs from the gamer, update the frame and again show it on the screen.
+			<br>
+			<br>
+			<br>
+			Now let's write last three lines in easy way.
+			<br>
+			<pre class="pre-scrollable">
+				<code>
+					while True:
+						display the frame on screen
+						take input from user
+						update the frame
+				</code>
+			</pre>
+			That's it! We only have to code this loop, and our flappy bird will be ready. So let's implement this. 
+		</p>
+
+		<h2 class="heading">
+			Implementation
+		</h2>
+
+		<p class="para">
+			There are 2 different objects in this game.
+			<br>
+			<ol>
+				<li>
+					Pipes
+				</li>
+
+				<li>
+					Bird
+				</li>
+			</ol>
+
+			Which means there will be two different classes, plus one, i.e 3. The third class is the Game() class. This will handle the game loop.
+
+			Let's take a look at Game() class.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+					class Game:
+					    pygame.init()
+					    blue = (135,206,250)
+					    clock = pygame.time.Clock()
+					    green = (0,155,0)
+					    black = (0,0,0)
+					    width = 1200
+					    height = 600
+					    gameDisplay = pygame.display.set_mode((width, height))
+					    pipes = []
+					    x = 0
+					    score = 0
+					    counter = 0
+					    def __init__(self):
+					        self.bird = Bird()
+					        self.gameLoop()
+
+					    def gameLoop(self):
+					        gameExit = False
+					        font = pygame.font.SysFont(None,25)
+					        image = pygame.image.load('background.png').convert_alpha()
+					        while not gameExit:
+					            self.gameDisplay.blit(image,[0,0])
+					            if self.counter%50 == 0:
+					                from pipe import Pipe
+					                self.pipes.append(Pipe())
+
+
+					            for event in pygame.event.get():
+					                if event.type == pygame.QUIT:
+					                    gameExit = True
+					                if event.type == pygame.KEYDOWN:
+					                    if event.key == pygame.K_SPACE:
+					                        self.bird.y_vel = -(self.bird.gravity+10)
+
+					            for pipe in self.pipes:
+					                pipe.showPipe()
+					                pipe.x -= 8
+					                if pipe.x <= -100:
+					                    self.pipes = self.pipes[1:]
+					            msg = font.render('Score: ' + str(self.score), True, (0, 0, 0))
+					            self.gameDisplay.blit(msg, [1100, 10])
+
+					            self.bird.showBird()
+
+					            if (self.bird.y+self.bird.radius) >= self.height or (self.bird.y-self.bird.radius) <= 0:
+					                gameExit = True
+					            if (self.bird.x+self.bird.radius) in range(self.pipes[0].x,self.pipes[0].x+76):
+					                if (self.bird.y+self.bird.radius) in range(self.pipes[0].y,Game.height+1):
+					                    gameExit = True
+					                elif (self.bird.y-self.bird.radius)in range(0,(self.pipes[0].y-self.pipes[0].gap)+1):
+					                    gameExit = True
+					            if (self.bird.x-self.bird.radius) > self.pipes[0].x and self.pipes[0].z==0:
+					                self.score += 1
+					                self.pipes[0].z = 1
+
+
+					            self.bird.y += self.bird.y_vel
+					            self.bird.y_vel+=self.bird.gravity
+					            self.counter += 1
+					            pygame.display.update()
+					            self.clock.tick(30)
+					        pygame.quit()
+					        quit()
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			Let's ignore all the initialisations before <code><var>__init__()</var></code> method for now, and concentrate on
+			<code><var>pygame.init()</var></code>.
+			This just initialise the pygame module so that we can use it's functionalities.
+			<br>
+			The other thing we want to understand is <code><var>gameDisplay = pygame.display.set_mode((width, height))</var></code>.
+			<br>
+			As the variable name suggests, this makes the screen(display) for the game of the given height and width. It is the display on which our frames will be shown.
+		</p>
+
+		<p class="para">
+			Now let's see the <code><var>__init__()</var></code> method.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+				    def __init__(self):
+				        self.bird = Bird()
+				        self.gameLoop()
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			So we are creating our bird
+		</p>
+
+
+	</div>
+</body>
+</html>
