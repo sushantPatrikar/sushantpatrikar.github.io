@@ -18,7 +18,7 @@ html,body{
 }
 
 #aboutme{
-    background: url("https://www.designbolts.com/wp-content/uploads/2012/11/Dark-Asfalt-Pattern-for-Website-Background.jpg");
+    background: url("img/background2.jpg");
   display: table;
   height: 100%;
   position: relative;
@@ -28,7 +28,7 @@ html,body{
 
 #projects{
   /*background : url("https://www.wallpaperup.com/uploads/wallpapers/2014/03/29/314439/83fa590af0296620246e5d7b647d0156-700.jpg");*/
-      background: url("https://images.template.net/wp-content/uploads/2015/04/Patterns-Black-Textures-Grunge.jpg");
+      background: url("img/background3.jpg");
 
   display: table;
   height: 120%;
