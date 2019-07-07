@@ -9,29 +9,33 @@ html,body{
 	/*background : url("alps-background-calm-1227520.jpg");*/
 	/*background: url("https://wallpaperplay.com/walls/full/1/c/0/186791.jpg");*/
 	/*background : url("https://www.wallpaperup.com/uploads/wallpapers/2014/03/29/314439/83fa590af0296620246e5d7b647d0156-700.jpg");*/
-	background: url("img/background.jpg");
+	/*background: url("img/background.jpg");*/
+  background: url("img/main.jpg");
 	display: table;
-	height: 110%;
+	height: 100%;
 	position: relative;
 	width: 100%;
 	background-size: cover;
 }
 
 #aboutme{
-    background: url("img/background2.jpg");
   display: table;
-  height: 100%;
+  height: 120%;
   position: relative;
   width: 100%;
   background-size: cover;
 }
-
+.skill{
+  float: left;
+}
 #projects{
-  /*background : url("https://www.wallpaperup.com/uploads/wallpapers/2014/03/29/314439/83fa590af0296620246e5d7b647d0156-700.jpg");*/
-      background: url("img/background3.jpg");
-
+  /*background : url("https://cdn.wallpapersafari.com/66/13/GHKioV.jpg");*/
+  /*background: url("img/background.jpg");*/
+  /*background: url("https://witbanknews.co.za/wp-content/uploads/sites/105/2017/04/darkness-01.jpg");*/
+  /*background: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/MPaEbz-/digitally-animated-geometrical-background-with-white-lines-and-dots-against-black-background_bxxevmoffg_thumbnail-full01.png");*/
+  background: url("img/projectsback.jpg");
   display: table;
-  height: 120%;
+  height: 100%;
   position: relative;
   width: 100%;
   background-size: cover;
@@ -131,7 +135,8 @@ html,body{
 }
 
 .bg-dark {
-    background-color: #2b28288a!important;
+    /*background-color: #2b28288a!important;*/
+    background-color: #0808088a!important;
 }
 
 .navbar-dark .navbar-nav .nav-link {

@@ -208,7 +208,7 @@
 		<p class="para">
 			Let's ignore all the initialisations before <code><var>__init__()</var></code> method for now, and concentrate on
 			<code><var>pygame.init()</var></code>.
-			This just initialise the pygame module so that we can use it's functionalities.
+			This just initialize the pygame module so that we can use it's functionalities.
 			<br>
 			The other thing we want to understand is <code><var>gameDisplay = pygame.display.set_mode((width, height))</var></code>.
 			<br>
@@ -230,10 +230,145 @@
 		</p>
 
 		<p class="para">
-			So we are creating our bird
+			As soon as our game starts, we create our bird and then call the <code><var>gameLoop()</var></code> method.
 		</p>
 
+		<p class="para">
+			Let's checkout <code><var>gameLoop()</var></code>.
+		</p>
 
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+					def gameLoop(self):
+					        gameExit = False
+					        font = pygame.font.SysFont(None,25)
+					        image = pygame.image.load('background.png').convert_alpha()
+					        while not gameExit:
+					            self.gameDisplay.blit(image,[0,0])
+					            if self.counter%50 == 0:
+					                from pipe import Pipe
+					                self.pipes.append(Pipe())
+
+
+					            for event in pygame.event.get():
+					                if event.type == pygame.QUIT:
+					                    gameExit = True
+					                if event.type == pygame.KEYDOWN:
+					                    if event.key == pygame.K_SPACE:
+					                        self.bird.y_vel = -(self.bird.gravity+10)
+
+					            for pipe in self.pipes:
+					                pipe.showPipe()
+					                pipe.x -= 8
+					                if pipe.x <= -100:
+					                    self.pipes = self.pipes[1:]
+					            msg = font.render('Score: ' + str(self.score), True, (0, 0, 0))
+					            self.gameDisplay.blit(msg, [1100, 10])
+
+					            self.bird.showBird()
+
+					            if (self.bird.y+self.bird.radius) >= self.height or (self.bird.y-self.bird.radius) <= 0:
+					                gameExit = True
+					            if (self.bird.x+self.bird.radius) in range(self.pipes[0].x,self.pipes[0].x+76):
+					                if (self.bird.y+self.bird.radius) in range(self.pipes[0].y,Game.height+1):
+					                    gameExit = True
+					                elif (self.bird.y-self.bird.radius)in range(0,(self.pipes[0].y-self.pipes[0].gap)+1):
+					                    gameExit = True
+					            if (self.bird.x-self.bird.radius) > self.pipes[0].x and self.pipes[0].z==0:
+					                self.score += 1
+					                self.pipes[0].z = 1
+
+
+					            self.bird.y += self.bird.y_vel
+					            self.bird.y_vel+=self.bird.gravity
+					            self.counter += 1
+					            pygame.display.update()
+					            self.clock.tick(30)
+					        pygame.quit()
+					        quit()
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable"><code><var>image = pygame.image.load('background.png').convert_alpha()</var></code></pre>
+			This line just store the background image of our game in <code><var>image</var></code> object and and convert it's pixels in specific manner so the image loads faster in every frame. <code><var>.convert_alpha()</var></code> optimizes the image, so that it can load faster and prevent the game from lagging.
+		</p>
+
+		<p class="para">
+			Now on the next line, comes our main loop.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+					while not gameExit:
+			            self.gameDisplay.blit(image,[0,0])
+			            if self.counter%50 == 0:
+			                from pipe import Pipe
+			                self.pipes.append(Pipe())
+
+
+			            for event in pygame.event.get():
+			                if event.type == pygame.QUIT:
+			                    gameExit = True
+			                if event.type == pygame.KEYDOWN:
+			                    if event.key == pygame.K_SPACE:
+			                        self.bird.y_vel = -(self.bird.gravity+10)
+
+			            for pipe in self.pipes:
+			                pipe.showPipe()
+			                pipe.x -= 8
+			                if pipe.x <= -100:
+			                    self.pipes = self.pipes[1:]
+			            msg = font.render('Score: ' + str(self.score), True, (0, 0, 0))
+			            self.gameDisplay.blit(msg, [1100, 10])
+
+			            self.bird.showBird()
+
+			            if (self.bird.y+self.bird.radius) >= self.height or (self.bird.y-self.bird.radius) <= 0:
+			                gameExit = True
+			            if (self.bird.x+self.bird.radius) in range(self.pipes[0].x,self.pipes[0].x+76):
+			                if (self.bird.y+self.bird.radius) in range(self.pipes[0].y,Game.height+1):
+			                    gameExit = True
+			                elif (self.bird.y-self.bird.radius)in range(0,(self.pipes[0].y-self.pipes[0].gap)+1):
+			                    gameExit = True
+			            if (self.bird.x-self.bird.radius) > self.pipes[0].x and self.pipes[0].z==0:
+			                self.score += 1
+			                self.pipes[0].z = 1
+
+
+			            self.bird.y += self.bird.y_vel
+			            self.bird.y_vel+=self.bird.gravity
+			            self.counter += 1
+			            pygame.display.update()
+			            self.clock.tick(30)
+				</code>
+				
+			</pre>
+			
+		</p>
+
+		<p class="para">
+			This whole loop runs for each and every frame of the game. Let's look at this loop in chunks.
+		</p>
+
+		<p class="para">
+			<pre class="pre-scrollable">
+				<code>
+					 self.gameDisplay.blit(image,[0,0])
+			            if self.counter%50 == 0:
+			                from pipe import Pipe
+			                self.pipes.append(Pipe())
+				</code>
+			</pre>
+		</p>
+
+		<p class="para">
+			As soon as the new frame starts, the first thing we do is blit the frame with our background image. This will hide our our previous drawings of bird and pipes. Bliting is just like pasting the image on the frame. Now we have just have a background, next thing we want is pipes. co
+		</p>
+	
 	</div>
 </body>
 </html>
