@@ -289,25 +289,25 @@ footer a, footer a:visited{
 }
 @-webkit-keyframes glowing {
   0% { background-color: transparent; -webkit-box-shadow: 0 0 3px #17a2b8;; }
-  50% { background-color: transparent; -webkit-box-shadow: 0 0 30px #17a2b8;; }
+  50% { background-color: transparent; -webkit-box-shadow: 0 0 22px #17a2b8;; }
   100% { background-color: transparent; -webkit-box-shadow: 0 0 3px #17a2b8;; }
 }
 
 @-moz-keyframes glowing {
   0% { background-color: transparent; -moz-box-shadow: 0 0 3px #17a2b8; }
-  50% { background-color: transparent; -moz-box-shadow: 0 0 30px #17a2b8; }
+  50% { background-color: transparent; -moz-box-shadow: 0 0 22px #17a2b8; }
   100% { background-color: transparent; -moz-box-shadow: 0 0 3px #17a2b8; }
 }
 
 @-o-keyframes glowing {
   0% { background-color: transparent; box-shadow: 0 0 3px #17a2b8; }
-  50% { background-color: transparent; box-shadow: 0 0 30px #17a2b8; }
+  50% { background-color: transparent; box-shadow: 0 0 22px #17a2b8; }
   100% { background-color: transparent; box-shadow: 0 0 3px #17a2b8; }
 }
 
 @keyframes glowing {
   0% { background-color: transparent; box-shadow: 0 0 3px #17a2b8; }
-  50% { background-color: transparent; box-shadow: 0 0 30px #17a2b8; }
+  50% { background-color: transparent; box-shadow: 0 0 22px #17a2b8; }
   100% { background-color: transparent; box-shadow: 0 0 3px #17a2b8; }
 }
 
