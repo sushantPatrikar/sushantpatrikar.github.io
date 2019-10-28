@@ -42,7 +42,8 @@ body {
   /*background: url("img/background.jpg");*/
   /*background: url("https://witbanknews.co.za/wp-content/uploads/sites/105/2017/04/darkness-01.jpg");*/
   /*background: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/MPaEbz-/digitally-animated-geometrical-background-with-white-lines-and-dots-against-black-background_bxxevmoffg_thumbnail-full01.png");*/
-  background: url("img/projectsback.jpg");
+  /*background: url("img/projectsback.jpg");*/
+  background-color: #212322;
   display: table;
   height: 100%;
   position: relative;
@@ -274,6 +275,40 @@ footer a, footer a:visited{
 
 #home a,#home a:visited{
   color: white;
+}
+
+#get-btn {
+    color: #fff;
+    background-color: transparent;
+    border-color: #17a2b8;
+    -webkit-border-radius: 10px;
+    -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+@-webkit-keyframes glowing {
+  0% { background-color: transparent; -webkit-box-shadow: 0 0 3px #17a2b8;; }
+  50% { background-color: transparent; -webkit-box-shadow: 0 0 30px #17a2b8;; }
+  100% { background-color: transparent; -webkit-box-shadow: 0 0 3px #17a2b8;; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: transparent; -moz-box-shadow: 0 0 3px #17a2b8; }
+  50% { background-color: transparent; -moz-box-shadow: 0 0 30px #17a2b8; }
+  100% { background-color: transparent; -moz-box-shadow: 0 0 3px #17a2b8; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: transparent; box-shadow: 0 0 3px #17a2b8; }
+  50% { background-color: transparent; box-shadow: 0 0 30px #17a2b8; }
+  100% { background-color: transparent; box-shadow: 0 0 3px #17a2b8; }
+}
+
+@keyframes glowing {
+  0% { background-color: transparent; box-shadow: 0 0 3px #17a2b8; }
+  50% { background-color: transparent; box-shadow: 0 0 30px #17a2b8; }
+  100% { background-color: transparent; box-shadow: 0 0 3px #17a2b8; }
 }
 
 
