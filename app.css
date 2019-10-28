@@ -289,25 +289,25 @@ footer a, footer a:visited{
 }
 @-webkit-keyframes glowing {
   0% { background-color: transparent; -webkit-box-shadow: 0 0 3px white; }
-  50% { background-color: transparent; -webkit-box-shadow: 0 0 22px white; }
+  50% { background-color: transparent; -webkit-box-shadow: 0 0 5px white; }
   100% { background-color: transparent; -webkit-box-shadow: 0 0 3px white; }
 }
 
 @-moz-keyframes glowing {
   0% { background-color: transparent; -moz-box-shadow: 0 0 3px white; }
-  50% { background-color: transparent; -moz-box-shadow: 0 0 22px white; }
+  50% { background-color: transparent; -moz-box-shadow: 0 0 5px white; }
   100% { background-color: transparent; -moz-box-shadow: 0 0 3px white; }
 }
 
 @-o-keyframes glowing {
   0% { background-color: transparent; box-shadow: 0 0 3px white; }
-  50% { background-color: transparent; box-shadow: 0 0 22px white; }
+  50% { background-color: transparent; box-shadow: 0 0 5px white; }
   100% { background-color: transparent; box-shadow: 0 0 3px white; }
 }
 
 @keyframes glowing {
   0% { background-color: transparent; box-shadow: 0 0 3px white; }
-  50% { background-color: transparent; box-shadow: 0 0 22px white; }
+  50% { background-color: transparent; box-shadow: 0 0 12px white; }
   100% { background-color: transparent; box-shadow: 0 0 3px white; }
 }
 
